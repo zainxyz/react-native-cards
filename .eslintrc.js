@@ -4,6 +4,7 @@ module.exports = {
   },
   extends: 'eslint-config-react-xyz',
   globals: {
+    __DEV__: true,
     document: true,
     window: true
   },

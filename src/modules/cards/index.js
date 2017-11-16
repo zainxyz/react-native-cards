@@ -1,9 +1,10 @@
 import * as cardActions from './actions';
+import reducer from './reducer';
 
 // Extract the action types from actions to help export / import logic.
 const { TYPES: actionTypes, ...actions } = cardActions;
 
-export { actions, actionTypes };
+export { actions, actionTypes, reducer };
 
 /**
  * The authoritative Card entity shape
