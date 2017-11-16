@@ -1,0 +1,72 @@
+{
+  "name": "react-native-cards",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Zain Abidi",
+  "description":
+    "Study for an upcoming test, lecture, event, or general knowledge using flash cards for iOS!",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/zainxyz/react-native-cards/issues"
+  },
+  "homepage": "https://github.com/zainxyz/react-native-cards#readme",
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "dependencies": {
+    "date-fns": "^1.29.0",
+    "expo": "^22.0.2",
+    "lodash": "^4.17.4",
+    "namespace-constants": "^0.5.0",
+    "prop-types": "^15.6.0",
+    "react": "16.0.0-beta.5",
+    "react-native": "^0.49.5",
+    "react-navigation": "^1.0.0-beta.19",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "uuid": "^3.1.0"
+  },
+  "scripts": {
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-react-app": "^1.0.5",
+    "eslint-config-react-xyz": "git+https://github.com/zainxyz/eslint-config-react-xyz.git",
+    "eslint-import-resolver-node": "^0.3.1",
+    "eslint-loader": "^1.8.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.1.0",
+    "jest-expo": "^22.0.0",
+    "react-native-scripts": "1.7.0",
+    "react-test-renderer": "16.0.0-beta.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zainxyz/react-native-cards.git"
+  },
+  "keywords": [
+    "cards",
+    "flash",
+    "flashcards",
+    "native",
+    "react",
+    "reactnative",
+    "reactredux",
+    "reactrouter",
+    "redux",
+    "router",
+    "study"
+  ],
+  "jest": {
+    "preset": "jest-expo"
+  }
+}

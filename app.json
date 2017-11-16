@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "description": "The best flash card app ever!",
+    "icon":
+      "http://icons.iconarchive.com/icons/creativeflip/starwars-longshadow-flat/512/R2D2-icon.png",
+    "name": "React Native Cards",
+    "notification": {
+      "icon": "http://icons.iconarchive.com/icons/fatcow/farm-fresh/32/user-yoda-icon.png"
+    },
+    "orientation": "portrait",
+    "sdkVersion": "22.0.0",
+    "slug": "react-xyz-native-cards",
+    "version": "0.0.1"
+  }
+}
