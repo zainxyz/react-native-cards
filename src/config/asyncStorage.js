@@ -1,5 +1,7 @@
 import { AsyncStorage } from 'react-native';
 
+import { APP_STORAGE_ID } from 'utils';
+
 /**
  * Load the redux state from the AsyncStorage
  *
@@ -8,11 +10,8 @@ import { AsyncStorage } from 'react-native';
  */
 export const loadState = () => {
   try {
-    const serializedState = AsyncStorage.getItem('rnCardsStore');
-    if (serializedState === null) {
-      return undefined;
-    }
-    return JSON.parse(serializedState);
+    const serializedState = AsyncStorage.getItem(APP_STORAGE_ID);
+    return serializedState ? JSON.parse(serializedState) : undefined;
   } catch (err) {
     return undefined;
   }
@@ -27,7 +26,7 @@ export const loadState = () => {
 export const saveState = state => {
   try {
     const serializedState = JSON.stringify(state);
-    AsyncStorage.setItem('rnCardsStore', serializedState);
+    AsyncStorage.setItem(APP_STORAGE_ID, serializedState);
   } catch (err) {
     // catch the error
   }
