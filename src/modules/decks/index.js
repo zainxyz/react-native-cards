@@ -1,10 +1,10 @@
 import * as deckActions from './actions';
-import reducer from './reducer';
+import reducer, * as selectors from './reducer';
 
 // Extract the action types from actions to help export / import logic.
 const { TYPES: actionTypes, ...actions } = deckActions;
 
-export { actions, actionTypes, reducer };
+export { actions, actionTypes, reducer, selectors };
 
 /**
  * The authoritative Deck entity shape

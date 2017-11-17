@@ -54,17 +54,15 @@ export const addDeck = ({ title }) => ({
  * Edit a deck
  *
  * @method editDeck
- * @param  {Array}  cards The updated list for the current deck
- * @param  {string} id    The id of the deck
- * @param  {string} title The updated / title for the deck
+ * @param  {Array}   cards           The updated list for the current deck
+ * @param  {...Rest} restOfDeckProps The rest of the props for the deck being edited
  * @return {Action}
  */
-export const editDeck = ({ cards, id, title }) => ({
+export const editDeck = ({ id, ...restOfDeckProps }) => ({
   type   : TYPES.EDIT_DECK,
   payload: {
     id,
-    title,
-    cards
+    ...restOfDeckProps
   }
 });
 

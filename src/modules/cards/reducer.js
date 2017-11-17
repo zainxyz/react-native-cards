@@ -62,4 +62,5 @@ export default cards;
  * @param  {Object}    state The current state
  * @return {Array}           The list of all of the cards from the store
  */
-export const getAllCards = state => state.allIds.map(id => state.byId[id]);
+export const getAllCards = state =>
+  state.cards && state.cards.allIds.map(id => state.cards.byId[id]);

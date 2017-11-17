@@ -55,17 +55,15 @@ export const addCard = ({ answer, question }) => ({
  * Edit a card
  *
  * @method editCard
- * @param  {string} answer   The answer text for the card
- * @param  {string} id       The id of the card being edited
- * @param  {string} question The question text for the card
+ * @param  {string}  answer          The answer text for the card
+ * @param  {...Rest} restOfCardProps The rest of the props for the card being edited
  * @return {Action}
  */
-export const editCard = ({ answer, id, question }) => ({
+export const editCard = ({ id, ...restOfCardProps }) => ({
   type   : TYPES.EDIT_CARD,
   payload: {
     id,
-    question,
-    answer
+    ...restOfCardProps
   }
 });
 
