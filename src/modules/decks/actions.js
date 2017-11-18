@@ -5,19 +5,8 @@ export const TYPES = constants('decks', [
   'ADD_DECK',
   'DELETE_DECK',
   'EDIT_DECK',
-  'FETCH_ALL_DECKS',
   'FETCH_DECK_BY_ID'
 ]);
-
-/**
- * Fetch all the decks from the Store
- *
- * @method fetchAllDecks
- * @return {Action}
- */
-export const fetchAllDecks = () => ({
-  type: TYPES.FETCH_ALL_DECKS
-});
 
 /**
  * Fetch a single deck by a given 'id'
@@ -40,13 +29,16 @@ export const fetchDeckById = id => ({
  * @param  {string} title The title of the deck
  * @return {Action}
  */
-export const addDeck = ({ title }) => ({
+export const addDeck = ({ title, ...restOfDeckProps }) => ({
   type   : TYPES.ADD_DECK,
   payload: {
-    id       : generateID(),
-    timestamp: getCurrentTimestamp(),
     title,
-    cards    : []
+    ...restOfDeckProps,
+    // Add in the id + timestamp after adding the rest of the deck props,
+    // because we don't want to accidentally pass in an 'id' and have it overwite
+    // the generated id value.
+    id       : generateID(),
+    timestamp: getCurrentTimestamp()
   }
 });
 

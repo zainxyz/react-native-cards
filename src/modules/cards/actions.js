@@ -5,19 +5,8 @@ export const TYPES = constants('cards', [
   'ADD_CARD',
   'DELETE_CARD',
   'EDIT_CARD',
-  'FETCH_ALL_CARDS',
   'FETCH_CARD_BY_ID'
 ]);
-
-/**
- * Fetch all the cards from the Store
- *
- * @method fetchAllCards
- * @return {Action}
- */
-export const fetchAllCards = () => ({
-  type: TYPES.FETCH_ALL_CARDS
-});
 
 /**
  * Fetch a single card by a given 'id'

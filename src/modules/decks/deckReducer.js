@@ -1,3 +1,6 @@
+import _uniq from 'lodash/uniq';
+import _isEmpty from 'lodash/isEmpty';
+
 import { TYPES } from './actions';
 
 /**
@@ -11,13 +14,16 @@ import { TYPES } from './actions';
 const deck = (state, action) => {
   switch (action.type) {
   case TYPES.ADD_DECK: {
-    const { id, timestamp, title, cards } = action.payload;
+    const { id, timestamp, title, cards: cardsFromAction } = action.payload;
+
+    const cards = Array.isArray(cardsFromAction) ? [...cardsFromAction] : [];
 
     return {
       id,
       timestamp,
       title,
-      cards
+      cards,
+      cardsCount: cards.length
     };
   }
   case TYPES.EDIT_DECK: {
@@ -25,9 +31,19 @@ const deck = (state, action) => {
       return state;
     }
 
+    const { cards: cardsFromAction, ...restOfDeckProps } = action.payload;
+
+    let cards = Array.isArray(state.cards) && !_isEmpty(state.cards) ? state.cards : [];
+
+    if (Array.isArray(cardsFromAction)) {
+      cards = _uniq([...cards, ...cardsFromAction]);
+    }
+
     return {
       ...state,
-      ...action.payload
+      cards,
+      cardsCount: cards.length,
+      ...restOfDeckProps
     };
   }
   default:
