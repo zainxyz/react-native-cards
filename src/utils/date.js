@@ -1,5 +1,6 @@
-import getTime from 'date-fns/get_time';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import format from 'date-fns/format';
+import getTime from 'date-fns/get_time';
 
 import { DATE_FORMAT, TIME_FORMAT } from './constants';
 
@@ -38,3 +39,5 @@ export const formatTime = timestamp => format(timestamp, TIME_FORMAT);
  */
 export const formatDateWithTime = timestamp =>
   `${formatDate(timestamp)} at ${formatTime(timestamp)}`;
+
+export const dateTillNow = timestamp => `${distanceInWordsToNow(timestamp)} ago`;
