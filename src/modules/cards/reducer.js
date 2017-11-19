@@ -1,3 +1,4 @@
+import _intersectionWith from 'lodash/intersectionWith';
 import { combineReducers } from 'redux';
 
 import * as helpers from './helpers';
@@ -64,3 +65,15 @@ export default cards;
  */
 export const getAllCards = state =>
   state.cards && state.cards.allIds.map(id => state.cards.byId[id]);
+
+export const getAllCardsForDeckFromParams = (state, props) => {
+  const cardsForDeck = [];
+
+  props.navigation.state.params.cardsList.forEach(id => {
+    if (state.cards && state.cards.byId[id]) {
+      cardsForDeck.push(state.cards.byId[id]);
+    }
+  });
+
+  return cardsForDeck;
+};

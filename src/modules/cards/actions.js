@@ -1,39 +1,22 @@
 import constants from 'namespace-constants';
 import { generateID, getCurrentTimestamp } from 'utils';
 
-export const TYPES = constants('cards', [
-  'ADD_CARD',
-  'DELETE_CARD',
-  'EDIT_CARD',
-  'FETCH_CARD_BY_ID'
-]);
-
-/**
- * Fetch a single card by a given 'id'
- *
- * @method fetchCardById
- * @param  {string}       id The id of the card to fetch
- * @return {Action}
- */
-export const fetchCardById = id => ({
-  type   : TYPES.FETCH_CARD_BY_ID,
-  payload: {
-    id
-  }
-});
+export const TYPES = constants('cards', ['ADD_CARD', 'DELETE_CARD', 'EDIT_CARD']);
 
 /**
  * Add a new card to the Store
  *
  * @method addCard
+ * @param  {string} id       The id for the card
  * @param  {string} answer   The answer text for the card
  * @param  {string} question The question text for the card
  * @return {Action}
  */
-export const addCard = ({ answer, question }) => ({
+export const addCard = ({ id, answer, question }) => ({
   type   : TYPES.ADD_CARD,
   payload: {
-    id       : generateID(),
+    // id       : generateID(),
+    id,
     timestamp: getCurrentTimestamp(),
     question,
     answer

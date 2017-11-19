@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { createSelector } from 'reselect';
 
 import * as helpers from './helpers';
 import { TYPES } from './actions';
@@ -64,3 +65,14 @@ export default decks;
  */
 export const getAllDecks = state =>
   state.decks && state.decks.allIds.map(id => state.decks.byId[id]);
+
+/**
+ * Get a deck by deckId passed in via the route params
+ *
+ * @method getDeckByRouteParams
+ * @param  {Object}             state The current state
+ * @param  {Object}             props The current props
+ * @return {Object}                   The deck that matches the route params deckId
+ */
+export const getDeckByRouteParams = (state, props) =>
+  getAllDecks(state).find(deck => deck.id === props.navigation.state.params.deckId);

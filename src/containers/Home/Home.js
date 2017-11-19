@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
@@ -36,7 +36,18 @@ class Home extends Component {
           <Left>
             <Text>Cards: {deck.cardsCount}</Text>
           </Left>
-          <Body />
+          <Body>
+            <Button
+              onPress={() =>
+                this.props.navigation.navigate('ViewDeck', {
+                  deckId   : deck.id,
+                  cardsList: deck.cards
+                })
+              }
+            >
+              <Text>View Deck</Text>
+            </Button>
+          </Body>
           <Right>
             <Text>{dateTillNow(deck.timestamp)}</Text>
           </Right>
@@ -48,17 +59,14 @@ class Home extends Component {
     return (
       <Container>
         <PageHeader navigateTo={this.props.navigation.navigate} title="Home" type="menu" />
-        <Content>
-          {this.renderDecks()}
-          {this.renderDecks()}
-        </Content>
+        <Content>{this.renderDecks()}</Content>
         <Footer>
           <Body>
             <Button
               full
               large
               style={{ backgroundColor: COLORS.PRIMARY }}
-              onPress={() => this.props.navigation.navigate('ViewDeck')}
+              onPress={() => this.props.navigation.navigate('AddDeck')}
             >
               <Icon name="ios-add-circle" style={{ color: COLORS.WHITE }} />
               <Text>Add New Deck</Text>

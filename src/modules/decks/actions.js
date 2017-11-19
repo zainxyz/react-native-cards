@@ -1,26 +1,7 @@
 import constants from 'namespace-constants';
 import { generateID, getCurrentTimestamp } from 'utils';
 
-export const TYPES = constants('decks', [
-  'ADD_DECK',
-  'DELETE_DECK',
-  'EDIT_DECK',
-  'FETCH_DECK_BY_ID'
-]);
-
-/**
- * Fetch a single deck by a given 'id'
- *
- * @method fetchDeckById
- * @param  {string}       id The id of the deck to fetch
- * @return {Action}
- */
-export const fetchDeckById = id => ({
-  type   : TYPES.FETCH_DECK_BY_ID,
-  payload: {
-    id
-  }
-});
+export const TYPES = constants('decks', ['ADD_DECK', 'DELETE_DECK', 'EDIT_DECK']);
 
 /**
  * Add a new deck to the Store
