@@ -3,7 +3,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import _isEmpty from 'lodash/isEmpty';
-import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 
 import Spacer from 'components/Spacer';
 import { COLORS } from 'utils';
@@ -55,7 +55,7 @@ class CardsList extends Component {
           <Entypo name="arrow-long-up" size={50} color={COLORS.PRIMARY} />
         </Text>
         <Text style={cardStyles.noCardsTitle}>
-          Please click on the 'Add A Card' button above to add your very first card to this deck
+          {`Please click on the 'Add A Card' button above to add your very first card to this deck`}
         </Text>
       </View>
     );

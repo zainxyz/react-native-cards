@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Spinner } from 'native-base';
 import { Text, View } from 'react-native';

@@ -56,7 +56,7 @@ class Home extends Component {
         </Text>
         <Spacer space={20} />
         <Text style={homeStyles.noDecksTitle}>
-          Please click on the 'Add A Deck' button below to add your very first deck
+          {`Please click on the 'Add A Deck' button below to add your very first deck`}
         </Text>
         <Text style={homeStyles.noDecksTitle}>
           <Entypo name="arrow-long-down" size={50} color={COLORS.PRIMARY} />
