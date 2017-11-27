@@ -1,19 +1,20 @@
 import Entypo from 'react-native-vector-icons/Entypo';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Container, Spinner } from 'native-base';
+import { Container } from 'native-base';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { Provider } from 'react-redux';
-import { StyleSheet } from 'react-native';
 
 import AddCard from 'containers/AddCard/AddCard';
 import AddDeck from 'containers/AddDeck/AddDeck';
 import Home from 'containers/Home/Home';
+import Loading from 'components/Loading';
 import PageHeader from 'components/PageHeader';
 import Quiz from 'containers/Quiz/Quiz';
 import ViewDeck from 'containers/ViewDeck/ViewDeck';
 import { COLORS } from 'utils';
+import { rootStyles } from 'styles';
 
 const Tabs = TabNavigator(
   {
@@ -115,10 +116,7 @@ const Root = props => {
 
   return (
     <Provider store={store}>
-      <PersistGate
-        loading={<Spinner color={COLORS.secondary} style={styles.container} />}
-        persistor={persistor}
-      >
+      <PersistGate loading={<Loading />} persistor={persistor}>
         <Container>
           <AppNavigator />
         </Container>
@@ -126,19 +124,6 @@ const Root = props => {
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex           : 1,
-    backgroundColor: '#fff',
-    alignItems     : 'center',
-    justifyContent : 'center'
-  },
-  spacer: {
-    marginTop   : 10,
-    marginBottom: 10
-  }
-});
 
 Root.propTypes = {
   persistor: PropTypes.object.isRequired,

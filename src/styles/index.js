@@ -4,6 +4,7 @@ export * from './cardStyles';
 export * from './cardsListStyles';
 export * from './deckStyles';
 export * from './homeStyles';
+export * from './loadingStyles';
 export * from './pageHeaderStyles';
 export * from './quizStyles';
 export * from './viewDeckStyles';
