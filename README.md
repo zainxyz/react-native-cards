@@ -4,6 +4,18 @@
 
 Study for an upcoming test, lecture, event, or general knowledge using flash cards for iOS!
 
+With this app you can create decks for your flashcards, add new and delete cards to and from a deck, and quiz yourself on a selected deck. The application logs your highest quiz score for a deck, so you can quickly select a deck on which you haven't scored high enough.
+
+The application provides the following (in detail):
+* Displaying a list of card decks
+* Displaying an individual deck view with all of the available cards for that deck, along with buttons to either 'Add a Card' or 'Start Quiz' on the deck
+* Take a Quiz for a selected deck, and get displayed stats in the end
+* Ability to add a new card deck
+* Ability to delete a chosen card deck
+* Ability to add a new card to a chosen deck
+* Ability to delete a card from a chosen deck
+* Local Notifications for taking at least 1 (one) quiz per day from any deck
+
 ## Tested Devices
 
 The application was tested on the following devices:

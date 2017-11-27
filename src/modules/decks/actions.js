@@ -70,13 +70,13 @@ export const updateQuizScores = ({ id, score }) => ({
  * @param  {string}  title The updated title of the deck
  * @return {Action}
  */
-// export const editDeck = ({ id, title }) => ({
-//   type   : TYPES.EDIT_DECK,
-//   payload: {
-//     id,
-//     title
-//   }
-// });
+export const editDeck = ({ id, title }) => ({
+  type   : TYPES.EDIT_DECK,
+  payload: {
+    id,
+    title
+  }
+});
 
 /**
  * Delete a deck by a given 'id'
