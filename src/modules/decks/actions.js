@@ -14,14 +14,15 @@ export const TYPES = constants('decks', [
  * Add a new deck to the Store
  *
  * @method addDeck
+ * @param  {string} id    The id of the deck
  * @param  {string} title The title of the deck
  * @return {Action}
  */
-export const addDeck = ({ title }) => ({
+export const addDeck = ({ id, title }) => ({
   type   : TYPES.ADD_DECK,
   payload: {
     title,
-    id       : generateID(),
+    id,
     timestamp: getCurrentTimestamp()
   }
 });

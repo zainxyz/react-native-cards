@@ -8,22 +8,34 @@ import { connect } from 'react-redux';
 import Spacer from 'components/Spacer';
 import { actions as decksActions } from 'modules/decks';
 import { addDeckStyles } from 'styles';
+import { generateID } from 'utils';
 
 class AddDeck extends Component {
   state = {
     title: ''
   };
 
+  _navigateToDeck = ({ id, title }) =>
+    this.props.navigation.navigate('ViewDeck', {
+      deck: {
+        id,
+        title
+      }
+    });
+
   _updateTitle = title => this.setState(() => ({ title }));
 
   handleSubmit = () => {
     const { title } = this.state;
-    const { addDeck, navigation } = this.props;
+    const { addDeck } = this.props;
 
     if (!_isEmpty(title)) {
-      addDeck({ title });
+      const id = generateID();
+
+      addDeck({ id, title });
+
       this._updateTitle(null);
-      navigation.goBack();
+      this._navigateToDeck({ id, title });
     } else {
       Alert.alert('Title for the deck is empty', "Please provide a valid 'title' for the deck.");
     }
