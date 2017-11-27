@@ -1,5 +1,6 @@
 import _uniq from 'lodash/uniq';
 import _isEmpty from 'lodash/isEmpty';
+import _filter from 'lodash/filter';
 
 import { TYPES } from './actions';
 
@@ -21,14 +22,26 @@ const deck = (state, action) => {
     };
   }
   case TYPES.ADD_CARD_TO_DECK: {
-    console.log('state :', state);
-    console.log('action :', action);
     if (state.id !== action.payload.id) {
       return state;
     }
 
     const { card } = action.payload;
     const cards = [...state.cards, card];
+
+    return {
+      ...state,
+      cards,
+      cardsCount: cards.length
+    };
+  }
+  case TYPES.DELETE_CARD_FROM_DECK: {
+    if (state.id !== action.payload.id) {
+      return state;
+    }
+
+    const { cardId } = action.payload;
+    const cards = _filter(state.cards, card => card.id !== cardId);
 
     return {
       ...state,

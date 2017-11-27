@@ -24,6 +24,7 @@ export const addDeckStyles = StyleSheet.create({
     backgroundColor: COLORS.PRIMARY
   },
   buttonText: {
-    color: COLORS.WHITE
+    color   : COLORS.WHITE,
+    fontSize: 20
   }
 });

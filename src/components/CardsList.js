@@ -1,30 +1,28 @@
 import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import _isEmpty from 'lodash/isEmpty';
-import { FlatList, Text, View } from 'react-native';
+import { Alert, FlatList, Text, TouchableOpacity, View } from 'react-native';
 
 import Spacer from 'components/Spacer';
 import { COLORS } from 'utils';
 import { cardStyles, cardsListStyles } from 'styles';
 
 class CardsList extends Component {
-  // _navigateToDeck = deck =>
-  //   this.props.navigation.navigate('ViewDeck', {
-  //     deck: {
-  //       id   : deck.id,
-  //       title: deck.title
-  //     }
-  //   });
-
   _keyExtractor = (item, idx) => item.id;
 
   _renderItem = ({ item }) => {
     const { answer, question } = item;
+    const { deleteCardConfirm } = this.props;
 
     return (
       <View>
         <View style={cardStyles.card}>
+          <TouchableOpacity style={cardStyles.deleteButton} onPress={() => deleteCardConfirm(item)}>
+            <Feather name="x" size={30} color={COLORS.SECONDARY} />
+            <Text>Delete Card</Text>
+          </TouchableOpacity>
           <Text style={cardStyles.title}>Question:</Text>
           <Text style={cardStyles.subTitle}>{question}</Text>
           <Text style={cardStyles.title}>Answer:</Text>
@@ -69,11 +67,13 @@ class CardsList extends Component {
 }
 
 CardsList.propTypes = {
-  cards: PropTypes.array
+  cards            : PropTypes.array,
+  deleteCardConfirm: PropTypes.func
 };
 
 CardsList.defaultProps = {
-  cards: []
+  cards            : [],
+  deleteCardConfirm: () => {}
 };
 
 export default CardsList;

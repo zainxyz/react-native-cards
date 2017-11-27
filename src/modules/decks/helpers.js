@@ -1,4 +1,5 @@
 import _omit from 'lodash/omit';
+import _filter from 'lodash/filter';
 
 import deckReducer from './deckReducer';
 
@@ -27,7 +28,7 @@ export const addDeckIdToAllIds = (state, action) => [...state, action.payload.id
  * @return {Array}                       The updated state
  */
 export const deleteDeckIdFromAllIds = (state, action) =>
-  state.filter(id => id !== action.payload.id);
+  _filter(state, id => id !== action.payload.id);
 
 /**
  * Delete a single deck from the store
@@ -47,11 +48,7 @@ export const deleteDeckById = (state, action) => _omit(state, action.payload.id)
  * @param  {Object}        action The action
  * @return {Object}               The updated state
  */
-export const addEditDeckById = (state, action) => {
-  console.log('addEditDeckById state : ', state);
-  console.log('addEditDeckById action : ', action);
-  return {
-    ...state,
-    [action.payload.id]: deckReducer(state[action.payload.id], action)
-  };
-};
+export const addEditDeckById = (state, action) => ({
+  ...state,
+  [action.payload.id]: deckReducer(state[action.payload.id], action)
+});

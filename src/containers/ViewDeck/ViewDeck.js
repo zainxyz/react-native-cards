@@ -22,6 +22,12 @@ class ViewDeck extends Component {
     navigation.goBack();
   };
 
+  deleteCard = item => {
+    const { deck, deleteCardFromDeck } = this.props;
+
+    deleteCardFromDeck(deck.id, item.id);
+  };
+
   deleteDeckConfirm = () =>
     Alert.alert(
       'Delete Deck?',
@@ -35,6 +41,26 @@ class ViewDeck extends Component {
         {
           text   : 'Delete',
           onPress: () => this.deleteDeck()
+        }
+      ],
+      {
+        cancelable: true
+      }
+    );
+
+  deleteCardConfirm = item =>
+    Alert.alert(
+      'Delete Card?',
+      `Are you sure you would like to delete this card: ${item.question}`,
+      [
+        {
+          text   : 'Cancel',
+          onPress: () => {},
+          style  : 'cancel'
+        },
+        {
+          text   : 'Delete Card',
+          onPress: () => this.deleteCard(item)
         }
       ],
       {
@@ -86,7 +112,7 @@ class ViewDeck extends Component {
             </View>
           </View>
           <View>
-            <CardsList cards={cards} />
+            <CardsList cards={cards} deleteCardConfirm={this.deleteCardConfirm} />
           </View>
         </Content>
       </Container>
@@ -95,9 +121,10 @@ class ViewDeck extends Component {
 }
 
 ViewDeck.propTypes = {
-  deck      : PropTypes.object,
-  deleteDeck: PropTypes.func.isRequired,
-  navigation: PropTypes.object.isRequired
+  deck              : PropTypes.object,
+  deleteCardFromDeck: PropTypes.func.isRequired,
+  deleteDeck        : PropTypes.func.isRequired,
+  navigation        : PropTypes.object.isRequired
 };
 
 ViewDeck.defaultProps = {
@@ -109,6 +136,7 @@ export default connect(
     deck: decksSelectors.getDeckByRouteParams
   }),
   {
-    deleteDeck: decksActions.deleteDeck
+    deleteDeck        : decksActions.deleteDeck,
+    deleteCardFromDeck: decksActions.deleteCardFromDeck
   }
 )(ViewDeck);

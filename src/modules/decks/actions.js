@@ -73,3 +73,19 @@ export const deleteDeck = id => ({
     id
   }
 });
+
+/**
+ * Delete a card from a deck by a given 'id'
+ *
+ * @method deleteCardFromDeck
+ * @param  {string}           id     The id of the deck to delete the card from
+ * @param  {string}           cardId The id of the card to delete from the deck
+ * @return {Action}
+ */
+export const deleteCardFromDeck = (id, cardId) => ({
+  type   : TYPES.DELETE_CARD_FROM_DECK,
+  payload: {
+    id,
+    cardId
+  }
+});

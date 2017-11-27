@@ -34,5 +34,10 @@ export const cardStyles = StyleSheet.create({
     margin   : 20,
     fontSize : 24,
     textAlign: 'center'
+  },
+  deleteButton: {
+    alignSelf    : 'flex-end',
+    flexDirection: 'row',
+    alignItems   : 'center'
   }
 });
