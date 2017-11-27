@@ -1,76 +1,70 @@
-import faker from 'faker';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { Button, Container, Content, Text, View } from 'native-base';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Button, Container, Content, Text, View } from 'native-base';
 
-import PageHeader from 'components/PageHeader';
+import CardsList from 'components/CardsList';
 import { actions as decksActions, selectors as decksSelectors } from 'modules/decks';
-import { actions as cardsActions, selectors as cardsSelectors } from 'modules/cards';
-import { generateID } from 'utils';
+import { viewDeckStyles } from 'styles';
 
 class ViewDeck extends Component {
   componentDidMount() {}
 
-  addRandomCard = () => {
-    const randomId = generateID();
-    const { deck } = this.props;
+  addCard = () => this.props.navigation.navigate('AddCard', { deck: { id: this.props.deck.id } });
 
-    this.props.addCard({
-      id      : randomId,
-      question: faker.lorem.paragraph(),
-      answer  : faker.lorem.words()
-    });
-
-    this.props.editDeck({
-      id   : deck.id,
-      cards: [randomId]
-    });
-  };
+  startQuiz = () => this.props.navigation.navigate('Quiz', { deck: { id: this.props.deck.id } });
 
   render() {
-    const { getAllCardsForDeckFromParams, navigation, deck } = this.props;
+    const { cards, deck } = this.props;
 
     return (
       <Container>
-        <PageHeader
-          navigateTo={() => navigation.goBack()}
-          title="Edit Deck"
-          subtitle={deck.title}
-          type="menu"
-          icon="ios-arrow-back"
-        />
         <Content>
-          <View>
-            <Text>{JSON.stringify(deck.cards)}</Text>
-            <View style={styles.spacer} />
-            <Text>{JSON.stringify(getAllCardsForDeckFromParams)}</Text>
+          <View style={viewDeckStyles.container}>
+            <Text style={viewDeckStyles.title}>{deck.title}</Text>
+            <Text style={viewDeckStyles.subTitle}>Total Cards: {deck.cardsCount}</Text>
           </View>
-          <Button onPress={this.addRandomCard}>
-            <Text>Add New Card to Deck</Text>
-          </Button>
+          <View style={viewDeckStyles.container}>
+            <View style={viewDeckStyles.buttonContainer}>
+              <Button large style={viewDeckStyles.addButton} onPress={this.addCard}>
+                <Text style={viewDeckStyles.addButtonText}>Add A Card</Text>
+              </Button>
+            </View>
+            {cards.length > 0 && (
+              <View style={viewDeckStyles.buttonContainer}>
+                <Button large style={viewDeckStyles.quizButton} onPress={this.startQuiz}>
+                  <Text style={viewDeckStyles.quizButtonText}>Start Quiz</Text>
+                </Button>
+              </View>
+            )}
+          </View>
+          <View>
+            <CardsList cards={cards} />
+          </View>
         </Content>
       </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  spacer: {
-    marginTop   : 10,
-    marginBottom: 10
-  }
-});
+ViewDeck.propTypes = {
+  addCard   : PropTypes.func.isRequired,
+  deck      : PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+  cards     : PropTypes.array
+};
+
+ViewDeck.defaultProps = {
+  cards: []
+};
 
 export default connect(
   createStructuredSelector({
-    deck                        : decksSelectors.getDeckByRouteParams,
-    cards                       : cardsSelectors.getAllCards,
-    getAllCardsForDeckFromParams: cardsSelectors.getAllCardsForDeckFromParams
+    deck : decksSelectors.getDeckByRouteParams,
+    cards: decksSelectors.getAllCardsForDeckByRouteParams
   }),
   {
-    addCard : cardsActions.addCard,
-    editDeck: decksActions.editDeck
+    addCard: decksActions.addCardToDeck
   }
 )(ViewDeck);

@@ -1,29 +1,19 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import _isEmpty from 'lodash/isEmpty';
-import { StyleSheet } from 'react-native';
-import {
-  Button,
-  Container,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-  Root,
-  Text,
-  Title,
-  Toast,
-  View
-} from 'native-base';
+import { Button, Container, Content, Form, Item, Input, Label, Text, View } from 'native-base';
 import { connect } from 'react-redux';
 
-import PageHeader from 'components/PageHeader';
 import { actions as decksActions } from 'modules/decks';
+import { appStyles, addDeckStyles } from 'styles';
 
 class AddDeck extends Component {
   state = {
     title: ''
   };
+
+  _updateTitle = title => this.setState(() => ({ title }));
 
   handleSubmit = () => {
     const { title } = this.state;
@@ -31,66 +21,42 @@ class AddDeck extends Component {
 
     if (!_isEmpty(title)) {
       addDeck({ title });
+      this._updateTitle('');
       navigation.goBack();
     } else {
-      Toast.show({
-        text      : 'Please enter a valid title for the deck.',
-        position  : 'bottom',
-        buttonText: 'Okay',
-        type      : 'danger'
-      });
+      Alert.alert('Title for the deck is empty', "Please provide a valid 'title' for the deck.");
     }
   };
 
   render() {
-    const { navigation } = this.props;
     const { title } = this.state;
 
     return (
-      <Root>
-        <Container>
-          <PageHeader
-            navigateTo={() => navigation.goBack()}
-            title="Add A Deck"
-            icon="ios-arrow-back"
-          />
-          <Content>
-            <Form ref={f => (this._form = f)} style={styles.container}>
-              <Title style={styles.title}>What is the title of your new deck?</Title>
-              <Item floatingLabel>
-                <Label>Deck Title</Label>
-                <Input value={title} onChangeText={title => this.setState({ title })} />
-              </Item>
-              <View style={styles.spacer} />
-              <View style={styles.container}>
-                <Button onPress={this.handleSubmit}>
-                  <Text>Add New Deck</Text>
-                </Button>
-              </View>
-            </Form>
-          </Content>
-        </Container>
-      </Root>
+      <Container>
+        <Content>
+          <Form ref={f => (this._form = f)} style={addDeckStyles.container}>
+            <Text style={addDeckStyles.title}>What is the title of your new deck?</Text>
+            <Item floatingLabel last>
+              <Label>Deck Title</Label>
+              <Input value={title} onChangeText={this._updateTitle} />
+            </Item>
+            <View style={appStyles.spacer} />
+            <View style={[addDeckStyles.container, { flexDirection: 'row' }]}>
+              <Button full large style={addDeckStyles.button} onPress={this.handleSubmit}>
+                <Text style={addDeckStyles.buttonText}>Add New Deck</Text>
+              </Button>
+            </View>
+          </Form>
+        </Content>
+      </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex          : 1,
-    justifyContent: 'center',
-    alignItems    : 'center'
-  },
-  spacer: {
-    marginTop   : 10,
-    marginBottom: 10
-  },
-  title: {
-    fontSize    : 24,
-    marginTop   : 10,
-    marginBottom: 10
-  }
-});
+AddDeck.propTypes = {
+  addDeck   : PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired
+};
 
 export default connect(null, {
   addDeck: decksActions.addDeck

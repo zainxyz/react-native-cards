@@ -14,14 +14,24 @@ import { TYPES } from './actions';
 const deck = (state, action) => {
   switch (action.type) {
   case TYPES.ADD_DECK: {
-    const { id, timestamp, title, cards: cardsFromAction } = action.payload;
+    return {
+      ...action.payload,
+      cards     : [],
+      cardsCount: 0
+    };
+  }
+  case TYPES.ADD_CARD_TO_DECK: {
+    console.log('state :', state);
+    console.log('action :', action);
+    if (state.id !== action.payload.id) {
+      return state;
+    }
 
-    const cards = Array.isArray(cardsFromAction) ? [...cardsFromAction] : [];
+    const { card } = action.payload;
+    const cards = [...state.cards, card];
 
     return {
-      id,
-      timestamp,
-      title,
+      ...state,
       cards,
       cardsCount: cards.length
     };

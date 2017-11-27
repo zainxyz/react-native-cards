@@ -19,21 +19,40 @@ export { actions, actionTypes, reducer, selectors };
 //
 // Redux Store Normalized Shape for 'decks'
 //
-// decks: {
-//   byId: {
-//     deck_1: {
-//       id       : 'deck_1',
-//       timestamp: 6546545444523,
-//       title    : 'Redux (holy grail)',
-//       cards    : ['card_1', 'card_5']
-//     },
-//     deck_2: {
-//       id       : 'deck_2',
-//       timestamp: 5373454523234,
-//       title    : 'Econ Quiz',
-//       cards    : ['card_2', 'card_3', 'card_6']
-//     }
-//   },
-//   allIds: ['deck_1', 'deck_2']
-// };
+// INITIAL_STATE for the decks reducer
 //
+const decks = {
+  byId: {
+    react_deck_1: {
+      id       : 'react_deck_1',
+      timestamp: 5373454523234,
+      title    : 'React',
+      cards    : [
+        {
+          id      : 'react_card_1',
+          question: 'What is React?',
+          answer  : 'A library for managing user interfaces'
+        },
+        {
+          id      : 'react_card_2',
+          question: 'Where do you make Ajax requests in React?',
+          answer  : 'The componentDidMount lifecycle event'
+        }
+      ]
+    },
+    javascript_deck_2: {
+      id       : 'javascript_deck_2',
+      timestamp: 6546545444523,
+      title    : 'JavaScript',
+      cards    : [
+        {
+          id     : 'card_javascript_1',
+          questin: 'What is a closure?',
+          answer :
+            'The combination of a function and the lexical environment within which that function was declared.'
+        }
+      ]
+    }
+  },
+  allIds: ['react_deck_1', 'javascript_deck_2']
+};

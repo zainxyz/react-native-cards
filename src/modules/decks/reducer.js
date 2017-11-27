@@ -16,6 +16,7 @@ const byId = (state = {}, action) => {
   switch (action.type) {
   case TYPES.ADD_DECK:
   case TYPES.EDIT_DECK:
+  case TYPES.ADD_CARD_TO_DECK:
     return helpers.addEditDeckById(state, action);
   case TYPES.DELETE_DECK:
     return helpers.deleteDeckById(state, action);
@@ -75,4 +76,15 @@ export const getAllDecks = state =>
  * @return {Object}                   The deck that matches the route params deckId
  */
 export const getDeckByRouteParams = (state, props) =>
-  getAllDecks(state).find(deck => deck.id === props.navigation.state.params.deckId);
+  getAllDecks(state).find(deck => deck.id === props.navigation.state.params.deck.id);
+
+/**
+ * Get all of the cards for the deck via the deckId passed in through the route params
+ *
+ * @method getAllCardsForDeckByRouteParams
+ * @return {Array}
+ */
+export const getAllCardsForDeckByRouteParams = createSelector(
+  [getDeckByRouteParams],
+  deck => deck.cards
+);

@@ -47,8 +47,11 @@ export const deleteDeckById = (state, action) => _omit(state, action.payload.id)
  * @param  {Object}        action The action
  * @return {Object}               The updated state
  */
-
-export const addEditDeckById = (state, action) => ({
-  ...state,
-  [action.payload.id]: deckReducer(state[action.payload.id], action)
-});
+export const addEditDeckById = (state, action) => {
+  console.log('addEditDeckById state : ', state);
+  console.log('addEditDeckById action : ', action);
+  return {
+    ...state,
+    [action.payload.id]: deckReducer(state[action.payload.id], action)
+  };
+};
