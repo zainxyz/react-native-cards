@@ -1,6 +1,6 @@
 import Entypo from 'react-native-vector-icons/Entypo';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { Container } from 'native-base';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { PersistGate } from 'redux-persist/es/integration/react';
@@ -13,8 +13,7 @@ import Loading from 'components/Loading';
 import PageHeader from 'components/PageHeader';
 import Quiz from 'containers/Quiz/Quiz';
 import ViewDeck from 'containers/ViewDeck/ViewDeck';
-import { COLORS } from 'utils';
-import { rootStyles } from 'styles';
+import { COLORS, setLocalNotification } from 'utils';
 
 const Tabs = TabNavigator(
   {
@@ -111,19 +110,24 @@ const AppNavigator = StackNavigator({
   }
 });
 
-const Root = props => {
-  const { persistor, store } = props;
+class Root extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
 
-  return (
-    <Provider store={store}>
-      <PersistGate loading={<Loading />} persistor={persistor}>
-        <Container>
-          <AppNavigator />
-        </Container>
-      </PersistGate>
-    </Provider>
-  );
-};
+  render() {
+    const { persistor, store } = this.props;
+    return (
+      <Provider store={store}>
+        <PersistGate loading={<Loading />} persistor={persistor}>
+          <Container>
+            <AppNavigator />
+          </Container>
+        </PersistGate>
+      </Provider>
+    );
+  }
+}
 
 Root.propTypes = {
   persistor: PropTypes.object.isRequired,

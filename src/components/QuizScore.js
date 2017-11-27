@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import Spacer from 'components/Spacer';
-import { COLORS, calculateQuizScore } from 'utils';
+import { COLORS, calculateQuizScore, clearLocalNotification, setLocalNotification } from 'utils';
 import { quizStyles } from 'styles';
 
 class QuizScore extends Component {
   componentDidMount() {
     const { correct, totalCards, updateQuizScores } = this.props;
     updateQuizScores(calculateQuizScore(correct, totalCards));
+    clearLocalNotification().then(setLocalNotification);
   }
 
   render() {
