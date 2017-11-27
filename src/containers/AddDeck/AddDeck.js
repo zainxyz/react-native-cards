@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
 import _isEmpty from 'lodash/isEmpty';
-import { Button, Container, Content, Form, Item, Input, Label, Text, View } from 'native-base';
+import { Alert, Text, View } from 'react-native';
+import { Button, Container, Content, Form, Item, Input, Label } from 'native-base';
 import { connect } from 'react-redux';
 
+import Spacer from 'components/Spacer';
 import { actions as decksActions } from 'modules/decks';
-import { appStyles, addDeckStyles } from 'styles';
+import { addDeckStyles } from 'styles';
 
 class AddDeck extends Component {
   state = {
@@ -40,7 +41,7 @@ class AddDeck extends Component {
               <Label>Deck Title</Label>
               <Input value={title} onChangeText={this._updateTitle} />
             </Item>
-            <View style={appStyles.spacer} />
+            <Spacer space={20} />
             <View style={[addDeckStyles.container, { flexDirection: 'row' }]}>
               <Button full large style={addDeckStyles.button} onPress={this.handleSubmit}>
                 <Text style={addDeckStyles.buttonText}>Add New Deck</Text>

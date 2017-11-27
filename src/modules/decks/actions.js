@@ -67,9 +67,9 @@ export const addCardToDeck = ({ id, card }) => ({
  * @param  {string}   id The id of the deck to delete
  * @return {Action}
  */
-// export const deleteDeck = id => ({
-//   type   : TYPES.DELETE_DECK,
-//   payload: {
-//     id
-//   }
-// });
+export const deleteDeck = id => ({
+  type   : TYPES.DELETE_DECK,
+  payload: {
+    id
+  }
+});

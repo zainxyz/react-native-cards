@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Button, Container, Content, Text, View } from 'native-base';
+import _isEmpty from 'lodash/isEmpty';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import { Container, Content } from 'native-base';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -9,14 +11,44 @@ import { actions as decksActions, selectors as decksSelectors } from 'modules/de
 import { viewDeckStyles } from 'styles';
 
 class ViewDeck extends Component {
-  componentDidMount() {}
-
   addCard = () => this.props.navigation.navigate('AddCard', { deck: { id: this.props.deck.id } });
 
   startQuiz = () => this.props.navigation.navigate('Quiz', { deck: { id: this.props.deck.id } });
 
+  deleteDeck = () => {
+    const { deck, deleteDeck, navigation } = this.props;
+
+    deleteDeck(deck.id);
+    navigation.goBack();
+  };
+
+  deleteDeckConfirm = () =>
+    Alert.alert(
+      'Delete Deck?',
+      `Are you sure you would like to delete this deck: ${this.props.deck.title}?`,
+      [
+        {
+          text   : 'Cancel',
+          onPress: () => {},
+          style  : 'cancel'
+        },
+        {
+          text   : 'Delete',
+          onPress: () => this.deleteDeck()
+        }
+      ],
+      {
+        cancelable: true
+      }
+    );
+
   render() {
-    const { cards, deck } = this.props;
+    const { deck } = this.props;
+    const { cards } = deck;
+
+    if (_isEmpty(deck)) {
+      return <View />;
+    }
 
     return (
       <Container>
@@ -27,17 +59,31 @@ class ViewDeck extends Component {
           </View>
           <View style={viewDeckStyles.container}>
             <View style={viewDeckStyles.buttonContainer}>
-              <Button large style={viewDeckStyles.addButton} onPress={this.addCard}>
-                <Text style={viewDeckStyles.addButtonText}>Add A Card</Text>
-              </Button>
+              <TouchableOpacity
+                style={[viewDeckStyles.button, viewDeckStyles.addButton]}
+                onPress={this.addCard}
+              >
+                <Text style={viewDeckStyles.buttonText}>Add A Card</Text>
+              </TouchableOpacity>
             </View>
             {cards.length > 0 && (
               <View style={viewDeckStyles.buttonContainer}>
-                <Button large style={viewDeckStyles.quizButton} onPress={this.startQuiz}>
-                  <Text style={viewDeckStyles.quizButtonText}>Start Quiz</Text>
-                </Button>
+                <TouchableOpacity
+                  style={[viewDeckStyles.button, viewDeckStyles.quizButton]}
+                  onPress={this.startQuiz}
+                >
+                  <Text style={viewDeckStyles.buttonText}>Start Quiz</Text>
+                </TouchableOpacity>
               </View>
             )}
+            <View style={viewDeckStyles.buttonContainer}>
+              <TouchableOpacity
+                style={[viewDeckStyles.button, viewDeckStyles.deleteButton]}
+                onPress={this.deleteDeckConfirm}
+              >
+                <Text style={viewDeckStyles.buttonText}>Delete Deck</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View>
             <CardsList cards={cards} />
@@ -49,22 +95,20 @@ class ViewDeck extends Component {
 }
 
 ViewDeck.propTypes = {
-  addCard   : PropTypes.func.isRequired,
-  deck      : PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
-  cards     : PropTypes.array
+  deck      : PropTypes.object,
+  deleteDeck: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
 ViewDeck.defaultProps = {
-  cards: []
+  deck: {}
 };
 
 export default connect(
   createStructuredSelector({
-    deck : decksSelectors.getDeckByRouteParams,
-    cards: decksSelectors.getAllCardsForDeckByRouteParams
+    deck: decksSelectors.getDeckByRouteParams
   }),
   {
-    addCard: decksActions.addCardToDeck
+    deleteDeck: decksActions.deleteDeck
   }
 )(ViewDeck);

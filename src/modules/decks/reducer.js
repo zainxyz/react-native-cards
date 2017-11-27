@@ -77,14 +77,3 @@ export const getAllDecks = state =>
  */
 export const getDeckByRouteParams = (state, props) =>
   getAllDecks(state).find(deck => deck.id === props.navigation.state.params.deck.id);
-
-/**
- * Get all of the cards for the deck via the deckId passed in through the route params
- *
- * @method getAllCardsForDeckByRouteParams
- * @return {Array}
- */
-export const getAllCardsForDeckByRouteParams = createSelector(
-  [getDeckByRouteParams],
-  deck => deck.cards
-);

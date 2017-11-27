@@ -2,11 +2,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import _isEmpty from 'lodash/isEmpty';
-import { FlatList, TouchableOpacity } from 'react-native';
-import { Text, View } from 'native-base';
+import { FlatList, Text, View } from 'react-native';
 
+import Spacer from 'components/Spacer';
 import { COLORS } from 'utils';
-import { appStyles, cardStyles, cardsListStyles } from 'styles';
+import { cardStyles, cardsListStyles } from 'styles';
 
 class CardsList extends Component {
   // _navigateToDeck = deck =>
@@ -23,14 +23,14 @@ class CardsList extends Component {
     const { answer, question } = item;
 
     return (
-      <TouchableOpacity>
+      <View>
         <View style={cardStyles.card}>
           <Text style={cardStyles.title}>Question:</Text>
           <Text style={cardStyles.subTitle}>{question}</Text>
           <Text style={cardStyles.title}>Answer:</Text>
           <Text style={cardStyles.subTitle}>{answer}</Text>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -52,7 +52,7 @@ class CardsList extends Component {
           Sorry, but you have not added any cards to this deck{' '}
           <Entypo name="emoji-sad" size={25} color={COLORS.SECONDARY} />
         </Text>
-        <View style={appStyles.spacer} />
+        <Spacer space={20} />
         <Text style={cardStyles.noCardsTitle}>
           <Entypo name="arrow-long-up" size={50} color={COLORS.PRIMARY} />
         </Text>

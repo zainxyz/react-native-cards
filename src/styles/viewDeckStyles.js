@@ -23,16 +23,25 @@ export const viewDeckStyles = StyleSheet.create({
   buttonContainer: {
     margin: 10
   },
+  button: {
+    backgroundColor: COLORS.PRIMARY,
+    padding        : 15,
+    paddingLeft    : 20,
+    paddingRight   : 20,
+    width          : 150
+  },
+  buttonText: {
+    color    : COLORS.WHITE,
+    fontSize : 20,
+    textAlign: 'center'
+  },
   addButton: {
     backgroundColor: COLORS.PRIMARY
-  },
-  addButtonText: {
-    color: COLORS.WHITE
   },
   quizButton: {
     backgroundColor: COLORS.SECONDARY
   },
-  quizButtonText: {
-    color: COLORS.WHITE
+  deleteButton: {
+    backgroundColor: COLORS.DARK
   }
 });

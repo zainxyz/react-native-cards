@@ -30,13 +30,6 @@ const Tabs = TabNavigator(
         tabBarLabel: 'Add A Deck',
         tabBarIcon : ({ tintColor }) => <Entypo name="plus" size={25} color={tintColor} />
       }
-    },
-    StartQuiz: {
-      screen           : AddDeck,
-      navigationOptions: {
-        tabBarLabel: 'Start A Quiz',
-        tabBarIcon : ({ tintColor }) => <Entypo name="bell" size={25} color={tintColor} />
-      }
     }
   },
   {

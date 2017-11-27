@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Body, Header, Left, Right, Title, View } from 'native-base';
-import { TouchableOpacity } from 'react-native';
+import { Body, Header, Left, Right, Title } from 'native-base';
+import { TouchableOpacity, View } from 'react-native';
 
 import { COLORS } from 'utils';
 import { pageHeaderStyles } from 'styles';

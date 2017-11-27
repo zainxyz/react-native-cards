@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 import React, { Component } from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { Container, Content, Text, Title, View } from 'native-base';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { Container, Content, Title } from 'native-base';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import Spacer from 'components/Spacer';
 import { COLORS } from 'utils';
-import { appStyles, deckStyles, homeStyles } from 'styles';
+import { deckStyles, homeStyles } from 'styles';
 import { selectors as decksSelectors } from 'modules/decks';
 
 class Home extends Component {
@@ -50,7 +51,7 @@ class Home extends Component {
           Sorry, but you do not have any decks available{' '}
           <Entypo name="emoji-sad" size={25} color={COLORS.SECONDARY} />
         </Text>
-        <View style={appStyles.spacer} />
+        <Spacer space={20} />
         <Text style={homeStyles.noDecksTitle}>
           Please click on the 'Add A Deck' button below to add your very first deck
         </Text>

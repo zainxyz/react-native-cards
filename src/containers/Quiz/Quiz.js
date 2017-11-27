@@ -1,28 +1,32 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import _shuffle from 'lodash/shuffle';
-import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Content, Text, Title, View } from 'native-base';
+import { Text } from 'react-native';
+import { Container, Content, Title } from 'native-base';
 import { createStructuredSelector } from 'reselect';
 
+import QuizQuestions from 'components/QuizQuestions';
+import QuizScore from 'components/QuizScore';
 import { selectors as decksSelectors } from 'modules/decks';
 import { quizStyles } from 'styles';
 
 class Quiz extends Component {
   state = {
     cards     : [],
-    counter   : 1,
     correct   : 0,
+    counter   : 1,
     showAnswer: false
   };
 
   componentWillMount() {
-    const { cards } = this.props;
-    const shuffledCards = _shuffle(cards);
+    const { deck } = this.props;
+    const { cards } = deck;
 
-    this.setState(() => ({ cards: shuffledCards }));
+    this.setState(() => ({ cards: this._shuffleCards(cards) }));
   }
+
+  _shuffleCards = cards => _shuffle(cards);
 
   correct = value => {
     this.setState(prevState => ({
@@ -33,53 +37,45 @@ class Quiz extends Component {
   };
 
   resetQuiz = () => {
-    this.setState(() => ({
-      counter   : 1,
+    this.setState(prevState => ({
+      cards     : this._shuffleCards(prevState.cards),
       correct   : 0,
+      counter   : 1,
       showAnswer: false
     }));
   };
 
+  revealAnswer = ({ showAnswer }) => this.setState(() => ({ showAnswer }));
+
   renderQuestions = () => {
+    const { deck } = this.props;
     const { cards, counter, showAnswer } = this.state;
     const current = cards[counter - 1];
 
     return (
-      <View>
-        <Text>{`${counter} of ${cards.length}`}</Text>
-        <Text>{showAnswer ? current.answer : current.question}</Text>
-        <TouchableOpacity onPress={() => this.setState(() => ({ showAnswer: !showAnswer }))}>
-          <Text>{showAnswer ? 'Question' : 'Answer'}</Text>
-        </TouchableOpacity>
-        <View>
-          <TouchableOpacity onPress={() => this.correct(true)}>
-            <Text>Correct</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.correct(false)}>
-            <Text>InCorrect</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <QuizQuestions
+        answer={current.answer}
+        counter={counter}
+        onCorrect={this.correct}
+        question={current.question}
+        revealAnswer={this.revealAnswer}
+        showAnswer={showAnswer}
+        totalCards={deck.cardsCount}
+      />
     );
   };
 
   renderScore = () => {
-    const { cards, correct } = this.state;
-    const { navigation } = this.props;
+    const { correct } = this.state;
+    const { deck, navigation } = this.props;
 
     return (
-      <View>
-        <Text>You have finished the Quiz!</Text>
-        <Text>
-          Score: {correct} out of {cards.length}
-        </Text>
-        <TouchableOpacity onPress={() => this.resetQuiz()}>
-          <Text>Re-take Quiz</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>Go Back to Deck</Text>
-        </TouchableOpacity>
-      </View>
+      <QuizScore
+        correct={correct}
+        totalCards={deck.cardsCount}
+        navigation={navigation}
+        resetQuiz={this.resetQuiz}
+      />
     );
   };
 
@@ -100,18 +96,16 @@ class Quiz extends Component {
 }
 
 Quiz.propTypes = {
-  cards: PropTypes.array,
-  deck : PropTypes.object
+  deck      : PropTypes.object,
+  navigation: PropTypes.object.isRequired
 };
 
 Quiz.defaultProps = {
-  cards: [],
-  deck : {}
+  deck: {}
 };
 
 export default connect(
   createStructuredSelector({
-    deck : decksSelectors.getDeckByRouteParams,
-    cards: decksSelectors.getAllCardsForDeckByRouteParams
+    deck: decksSelectors.getDeckByRouteParams
   })
 )(Quiz);
