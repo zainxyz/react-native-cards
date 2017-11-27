@@ -6,7 +6,8 @@ export const TYPES = constants('decks', [
   'ADD_DECK',
   'DELETE_CARD_FROM_DECK',
   'DELETE_DECK',
-  'EDIT_DECK'
+  'EDIT_DECK',
+  'UPDATE_QUIZ_SCORES'
 ]);
 
 /**
@@ -41,6 +42,22 @@ export const addCardToDeck = ({ id, card }) => ({
       ...card,
       id: generateID()
     }
+  }
+});
+
+/**
+ * Update the quiz scores for the given deck
+ *
+ * @method updateQuizScores
+ * @param  {string}         id    The id of the deck to update the score for
+ * @param  {string}         score The score for the deck
+ * @return {Action}
+ */
+export const updateQuizScores = ({ id, score }) => ({
+  type   : TYPES.UPDATE_QUIZ_SCORES,
+  payload: {
+    id,
+    score
   }
 });
 

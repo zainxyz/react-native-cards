@@ -17,6 +17,7 @@ const byId = (state = {}, action) => {
   case TYPES.EDIT_DECK:
   case TYPES.ADD_CARD_TO_DECK:
   case TYPES.DELETE_CARD_FROM_DECK:
+  case TYPES.UPDATE_QUIZ_SCORES:
     return helpers.addEditDeckById(state, action);
   case TYPES.DELETE_DECK:
     return helpers.deleteDeckById(state, action);

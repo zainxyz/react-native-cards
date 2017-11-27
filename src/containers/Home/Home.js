@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import Spacer from 'components/Spacer';
-import { COLORS } from 'utils';
+import { COLORS, getHighestQuizScore } from 'utils';
 import { deckStyles, homeStyles } from 'styles';
 import { selectors as decksSelectors } from 'modules/decks';
 
@@ -22,13 +22,16 @@ class Home extends Component {
     });
 
   _renderItem = ({ item }) => {
-    const { title, cardsCount } = item;
+    const { title, cardsCount, quizScores } = item;
 
     return (
       <TouchableOpacity onPress={() => this._navigateToDeck(item)}>
         <View style={deckStyles.card}>
           <Title style={deckStyles.title}>{title}</Title>
-          <Text style={deckStyles.subTitle}>Cards: {cardsCount}</Text>
+          <Text style={deckStyles.subTitle}>Total Cards: {cardsCount}</Text>
+          <Text style={deckStyles.subTitle}>
+            Highest Quiz Score: {getHighestQuizScore(quizScores)}
+          </Text>
         </View>
       </TouchableOpacity>
     );

@@ -8,6 +8,7 @@ import { createStructuredSelector } from 'reselect';
 
 import CardsList from 'components/CardsList';
 import { actions as decksActions, selectors as decksSelectors } from 'modules/decks';
+import { getHighestQuizScore } from 'utils';
 import { viewDeckStyles } from 'styles';
 
 class ViewDeck extends Component {
@@ -82,6 +83,9 @@ class ViewDeck extends Component {
           <View style={viewDeckStyles.container}>
             <Text style={viewDeckStyles.title}>{deck.title}</Text>
             <Text style={viewDeckStyles.subTitle}>Total Cards: {deck.cardsCount}</Text>
+            <Text style={viewDeckStyles.subTitle}>
+              Highest Quiz Score: {getHighestQuizScore(deck.quizScores)}
+            </Text>
           </View>
           <View style={viewDeckStyles.container}>
             <View style={viewDeckStyles.buttonContainer}>

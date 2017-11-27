@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 
 import QuizQuestions from 'components/QuizQuestions';
 import QuizScore from 'components/QuizScore';
-import { selectors as decksSelectors } from 'modules/decks';
+import { actions as decksActions, selectors as decksSelectors } from 'modules/decks';
 import { quizStyles } from 'styles';
 
 class Quiz extends Component {
@@ -47,6 +47,8 @@ class Quiz extends Component {
 
   revealAnswer = ({ showAnswer }) => this.setState(() => ({ showAnswer }));
 
+  updateQuizScores = score => this.props.updateQuizScores({ id: this.props.deck.id, score });
+
   renderQuestions = () => {
     const { deck } = this.props;
     const { cards, counter, showAnswer } = this.state;
@@ -75,6 +77,7 @@ class Quiz extends Component {
         totalCards={deck.cardsCount}
         navigation={navigation}
         resetQuiz={this.resetQuiz}
+        updateQuizScores={this.updateQuizScores}
       />
     );
   };
@@ -96,8 +99,9 @@ class Quiz extends Component {
 }
 
 Quiz.propTypes = {
-  deck      : PropTypes.object,
-  navigation: PropTypes.object.isRequired
+  deck            : PropTypes.object,
+  navigation      : PropTypes.object.isRequired,
+  updateQuizScores: PropTypes.func.isRequired
 };
 
 Quiz.defaultProps = {
@@ -107,5 +111,8 @@ Quiz.defaultProps = {
 export default connect(
   createStructuredSelector({
     deck: decksSelectors.getDeckByRouteParams
-  })
+  }),
+  {
+    updateQuizScores: decksActions.updateQuizScores
+  }
 )(Quiz);

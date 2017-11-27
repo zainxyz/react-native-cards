@@ -22,7 +22,7 @@ class AddDeck extends Component {
 
     if (!_isEmpty(title)) {
       addDeck({ title });
-      this._updateTitle();
+      this._updateTitle(null);
       navigation.goBack();
     } else {
       Alert.alert('Title for the deck is empty', "Please provide a valid 'title' for the deck.");

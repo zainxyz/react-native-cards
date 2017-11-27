@@ -18,7 +18,8 @@ const deck = (state, action) => {
     return {
       ...action.payload,
       cards     : [],
-      cardsCount: 0
+      cardsCount: 0,
+      quizScores: []
     };
   }
   case TYPES.ADD_CARD_TO_DECK: {
@@ -47,6 +48,19 @@ const deck = (state, action) => {
       ...state,
       cards,
       cardsCount: cards.length
+    };
+  }
+  case TYPES.UPDATE_QUIZ_SCORES: {
+    if (state.id !== action.payload.id) {
+      return state;
+    }
+
+    const { score } = action.payload;
+    const quizScores = [...state.quizScores, score];
+
+    return {
+      ...state,
+      quizScores
     };
   }
   case TYPES.EDIT_DECK: {
