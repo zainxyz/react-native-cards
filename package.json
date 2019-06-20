@@ -42,7 +42,7 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "babel-plugin-module-resolver": "^3.0.0",
-    "eslint": "^4.9.0",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-react-app": "^1.0.5",
     "eslint-config-react-xyz": "git+https://github.com/zainxyz/eslint-config-react-xyz.git",
