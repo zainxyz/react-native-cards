@@ -15,7 +15,7 @@
     "date-fns": "^1.29.0",
     "expo": "^22.0.2",
     "faker": "^4.1.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "namespace-constants": "^0.5.0",
     "native-base": "^2.3.3",
     "prop-types": "^15.6.0",
