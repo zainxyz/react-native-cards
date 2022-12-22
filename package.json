@@ -53,7 +53,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.1.0",
     "jest-expo": "^22.0.0",
-    "react-native-scripts": "1.7.0",
+    "react-native-scripts": "1.14.1",
     "react-test-renderer": "16.0.0-beta.5"
   },
   "repository": {
